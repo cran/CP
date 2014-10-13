@@ -1,0 +1,7 @@
+export(ConPwrExpAndersen,
+       ConPwrExp,
+       ConPwrNonMixExp,
+       ConPwrNonMixWei,
+       ConPwrNonMixGamma,
+       CompSurvMod,
+       GenerateDataFrame)
