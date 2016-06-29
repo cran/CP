@@ -63,27 +63,27 @@ PlotEstNonMixGamma <- function(data1, data2,
   }
 
   # survival curves of group 1 and group 2
-  S1 <- c1.hat^pgamma(q     = t1,
-                      shape = a1.hat,
-                      rate  = b1.hat)
-  S2 <- c2.hat^pgamma(q     = t2,
-                      shape = a2.hat,
-                      rate  = b2.hat)
+  S1 <- c1.hat^stats::pgamma(q     = t1,
+                             shape = a1.hat,
+                             rate  = b1.hat)
+  S2 <- c2.hat^stats::pgamma(q     = t2,
+                             shape = a2.hat,
+                             rate  = b2.hat)
 
   # plot of survival curve of group 1
-  lines(x    = t1,
-        y    = S1,
-        col  = "blue")
+  graphics::lines(x    = t1,
+                  y    = S1,
+                  col  = "blue")
 
   # plot of survival curve of group 2
-  lines(x   = t2,
-        y   = S2,
-        col = "green")
+  graphics::lines(x   = t2,
+                  y   = S2,
+                  col = "green")
 
-  legend(x      = "topright",
-         legend = c(group1.name, group2.name),
-         col    = c("blue", "green"),
-         lty    = c(1, 1),
-         pch    = c(3, 3),
-         bg     = "white")
+  graphics::legend(x      = "topright",
+                   legend = c(group1.name, group2.name),
+                   col    = c("blue", "green"),
+                   lty    = c(1, 1),
+                   pch    = c(3, 3),
+                   bg     = "white")
 }

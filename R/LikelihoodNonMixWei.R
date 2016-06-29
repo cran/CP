@@ -69,12 +69,12 @@ LikelihoodNonMixWei <- function(data1, data2, data,
                 byrow = TRUE)
   b1  <- c(eps, eps, eps, - (1 - eps))
   # maximum likelihood estimators for parameters lambda, k and c for data of group 1
-  res1 <- constrOptim(theta   = c(lambda1.0, k1.0, c1.0),
-                      f       = l1,
-                      grad    = l1Grad,
-                      ui      = A1,
-                      ci      = b1,
-                      control = list(fnscale = -1))
+  res1 <- stats::constrOptim(theta   = c(lambda1.0, k1.0, c1.0),
+                             f       = l1,
+                             grad    = l1Grad,
+                             ui      = A1,
+                             ci      = b1,
+                             control = list(fnscale = -1))
 
   # GROUP 2 (data2) -> lambda2.hat, k2.hat, c2.hat
   # log-likelihood function of parameters lambda, k and c for data of group 2
@@ -109,12 +109,12 @@ LikelihoodNonMixWei <- function(data1, data2, data,
                 byrow = TRUE)
   b2  <- c(eps, eps, eps, - (1 - eps))
   # maximum likelihood estimators for parameters lambda, k and c for data of group 2
-  res2 <- constrOptim(theta   = c(lambda2.0, k2.0, c2.0),
-                      f       = l2,
-                      grad    = l2Grad,
-                      ui      = A2,
-                      ci      = b2,
-                      control = list(fnscale = -1))
+  res2 <- stats::constrOptim(theta   = c(lambda2.0, k2.0, c2.0),
+                             f       = l2,
+                             grad    = l2Grad,
+                             ui      = A2,
+                             ci      = b2,
+                             control = list(fnscale = -1))
 
   # ALL DATA (data) -> lambda.hat, k.hat
   # log-likelihood function of parameters lambda, k and c for all data
@@ -149,12 +149,12 @@ LikelihoodNonMixWei <- function(data1, data2, data,
                  byrow = TRUE)
   bAll <- c(eps, eps, eps, - (1 - eps))
   # maximum likelihood estimators for parameters lambda, k and c for all data
-  resAll <- constrOptim(theta   = c(lambda.0, k.0, c.0),
-                        f       = lAll,
-                        grad    = lAllGrad,
-                        ui      = AAll,
-                        ci      = bAll,
-                        control = list(fnscale = -1))
+  resAll <- stats::constrOptim(theta   = c(lambda.0, k.0, c.0),
+                               f       = lAll,
+                               grad    = lAllGrad,
+                               ui      = AAll,
+                               ci      = bAll,
+                               control = list(fnscale = -1))
   lambda.hat <- resAll$par[1]
   k.hat      <- resAll$par[2]
 
@@ -182,12 +182,12 @@ LikelihoodNonMixWei <- function(data1, data2, data,
                     byrow = TRUE)
   b1.cond <- c(eps, - (1 - eps))
   # maximum likelihood estimator for parameter c for data of group 1
-  res1.cond <- constrOptim(theta   = c1.0,
-                           f       = l1.cond,
-                           grad    = l1Grad.cond,
-                           ui      = A1.cond,
-                           ci      = b1.cond,
-                           control = list(fnscale = -1))
+  res1.cond <- stats::constrOptim(theta   = c1.0,
+                                  f       = l1.cond,
+                                  grad    = l1Grad.cond,
+                                  ui      = A1.cond,
+                                  ci      = b1.cond,
+                                  control = list(fnscale = -1))
 
   # GROUP 2 (data2) with fixed lambda and k -> c2.cond.hat
   # log-likelihood function of parameter c for data of group 2
@@ -213,12 +213,12 @@ LikelihoodNonMixWei <- function(data1, data2, data,
                     byrow = TRUE)
   b2.cond <- c(eps, - (1 - eps))
   # maximum likelihood estimator for parameter c for data of group 2
-  res2.cond <- constrOptim(theta   = c2.0,
-                           f       = l2.cond,
-                           grad    = l2Grad.cond,
-                           ui      = A2.cond,
-                           ci      = b2.cond,
-                           control = list(fnscale = -1))
+  res2.cond <- stats::constrOptim(theta   = c2.0,
+                                  f       = l2.cond,
+                                  grad    = l2Grad.cond,
+                                  ui      = A2.cond,
+                                  ci      = b2.cond,
+                                  control = list(fnscale = -1))
 
   return(c(res1$par[1], res1$par[2], res1$par[3],
            res2$par[1], res2$par[2], res2$par[3],

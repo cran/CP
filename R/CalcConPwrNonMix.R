@@ -50,9 +50,9 @@ CalcConPwrNonMix <- function(theta.0,
                                       * (1 - exp(- (d2 - theta * log(c1.hat) * O2.stroke.star) / (o2.stroke + O2.stroke.star))
                                               * (1 + ((d2 - theta * log(c1.hat) * O2.stroke.star) / (o2.stroke + O2.stroke.star))^2)))))
   # (asymptotically) conditional power function
-  gamma.theta       <- (pnorm((qnorm(alpha / 2) * sigma.theta.null + mu.theta.null
+  gamma.theta       <- (stats::pnorm((stats::qnorm(alpha / 2) * sigma.theta.null + mu.theta.null
                                 - mu.theta.alter) / sigma.theta.alter)
-                         + 1 - pnorm((qnorm(1 - alpha / 2) * sigma.theta.null + mu.theta.null
+                         + 1 - stats::pnorm((stats::qnorm(1 - alpha / 2) * sigma.theta.null + mu.theta.null
                                        - mu.theta.alter) / sigma.theta.alter))
   # values at theta.0
   mu.theta.0        <- (log((d2 - theta.0 * log(c1.hat) * O2.stroke.star) / (o2.stroke + O2.stroke.star))
@@ -63,9 +63,9 @@ CalcConPwrNonMix <- function(theta.0,
                               + 1 / (n.star
                                       * (1 - exp(- (d2 - theta.0 * log(c1.hat) * O2.stroke.star) / (o2.stroke + O2.stroke.star))
                                               * (1 + ((d2 - theta.0 * log(c1.hat) * O2.stroke.star) / (o2.stroke + O2.stroke.star))^2)))))
-  gamma.theta.0     <- (pnorm((qnorm(alpha / 2) * sigma.theta.null + mu.theta.null
+  gamma.theta.0     <- (stats::pnorm((stats::qnorm(alpha / 2) * sigma.theta.null + mu.theta.null
                                 - mu.theta.0) / sigma.theta.0)
-                         + 1 - pnorm((qnorm(1 - alpha / 2) * sigma.theta.null + mu.theta.null
+                         + 1 - stats::pnorm((stats::qnorm(1 - alpha / 2) * sigma.theta.null + mu.theta.null
                                        - mu.theta.0) / sigma.theta.0))
 
   return(list(theta, gamma.theta, gamma.theta.0))

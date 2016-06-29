@@ -22,8 +22,8 @@
  \tabular{ll}{
   Package: \tab CP \cr
   Type:    \tab Package \cr
-  Version: \tab 1.5 \cr
-  Date:    \tab 2014-10-13 \cr
+  Version: \tab 1.6 \cr
+  Date:    \tab 2016-06-28 \cr
   License: \tab GPL-3 \cr
  }
  

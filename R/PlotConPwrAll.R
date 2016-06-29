@@ -40,46 +40,46 @@ PlotConPwrAll <- function(theta,
   ## Returns:
   ##   Plot of the condtional power curves.
 
-  plot(x    = log(theta),
-       y    = gamma.theta.exp,
-       type = "l",
-       xlab = paste("log(Hazard Ratio) = log(Hazard ",
-                    group2.name,
-                    " / Hazard ",
-                    group1.name,
-                    ")",
-                    sep = ""),
-       ylab = "Conditional Power",
-       col  = "red",
-       ylim = c(0, 1))
+  graphics::plot(x    = log(theta),
+                 y    = gamma.theta.exp,
+                 type = "l",
+                 xlab = paste("log(Hazard Ratio) = log(Hazard ",
+                              group2.name,
+                              " / Hazard ",
+                              group1.name,
+                              ")",
+                              sep = ""),
+                 ylab = "Conditional Power",
+                 col  = "red",
+                 ylim = c(0, 1))
 
-  lines(x   = log(theta),
-        y   = gamma.theta.nonmix.exp,
-        col = "blue")
+  graphics::lines(x   = log(theta),
+                  y   = gamma.theta.nonmix.exp,
+                  col = "blue")
 
-  lines(x   = log(theta),
-        y   = gamma.theta.nonmix.wei,
-        col = "green")
+  graphics::lines(x   = log(theta),
+                  y   = gamma.theta.nonmix.wei,
+                  col = "green")
 
-  lines(x   = log(theta),
-        y   = gamma.theta.nonmix.gamma,
-        col = "yellow")
+  graphics::lines(x   = log(theta),
+                  y   = gamma.theta.nonmix.gamma,
+                  col = "yellow")
 
-  abline(v   = log(theta.0),
-         lty = 3)
+  graphics::abline(v   = log(theta.0),
+                   lty = 3)
 
-  legend(x      = "topright",
-         legend = c("Exponential",
-                    "Non-Mixture-Exponential",
-                    "Non-Mixture-Weibull",
-                    "Non-Mixture-Gamma"),
-         col    = c("red",
-                    "blue",
-                    "green",
-                    "yellow"),
-         lty    = c(1,
-                    1,
-                    1,
-                    1),
-         bg     = "white")
+  graphics::legend(x      = "topright",
+                   legend = c("Exponential",
+                              "Non-Mixture-Exponential",
+                              "Non-Mixture-Weibull",
+                              "Non-Mixture-Gamma"),
+                   col    = c("red",
+                              "blue",
+                              "green",
+                              "yellow"),
+                   lty    = c(1,
+                              1,
+                              1,
+                              1),
+                   bg     = "white")
 }

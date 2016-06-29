@@ -66,19 +66,19 @@ PlotEstNonMixWei <- function(data1, data2,
   S2 <- c2.hat^(1 - exp(- lambda2.hat * t2^k2.hat))
 
   # plot of survival curve of group 1
-  lines(x    = t1,
-        y    = S1,
-        col  = "blue")
+  graphics::lines(x    = t1,
+                  y    = S1,
+                  col  = "blue")
 
   # plot of survival curve of group 2
-  lines(x   = t2,
-        y   = S2,
-        col = "green")
+  graphics::lines(x   = t2,
+                  y   = S2,
+                  col = "green")
 
-  legend(x      = "topright",
-         legend = c(group1.name, group2.name),
-         col    = c("blue", "green"),
-         lty    = c(1, 1),
-         pch    = c(3, 3),
-         bg     = "white")
+  graphics::legend(x      = "topright",
+                   legend = c(group1.name, group2.name),
+                   col    = c("blue", "green"),
+                   lty    = c(1, 1),
+                   pch    = c(3, 3),
+                   bg     = "white")
 }

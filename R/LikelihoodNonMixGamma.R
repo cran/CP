@@ -46,9 +46,9 @@ LikelihoodNonMixGamma <- function(data1, data2, data,
       + (x[1] - 1) * sum(data1[, 2] * log(data1[, 3]))
       - x[2] * sum(data1[, 2] * data1[, 3])
       + log(- log(x[3])) * sum(data1[, 2])
-      + log(x[3]) * sum(pgamma(q     = data1[, 3],
-                               shape = x[1],
-                               rate  = x[2])))
+      + log(x[3]) * sum(stats::pgamma(q     = data1[, 3],
+                                      shape = x[1],
+                                      rate  = x[2])))
   }
   # auxiliary function
   Integrand1 <- function(x, par) {
@@ -60,26 +60,28 @@ LikelihoodNonMixGamma <- function(data1, data2, data,
        - digamma(x = x[1]) * sum(data1[, 2])
        + sum(data1[, 2] * log(data1[, 3]))
        + log(x[3]) * sum((gamma(x = x[1])
-            * integrate(f     = Integrand1,
-                        lower = 0,
-                        upper = x[2] * data1[, 3],
-                        par   = x[1])$value
-           - gamma(x = x[1]) * pgamma(q     = data1[, 3],
-                                      shape = x[1],
-                                      rate  = x[2])
-            * integrate(f     = Integrand1,
-                        lower = 0,
-                        upper = Inf,
-                        par   = x[1])$value)
+			* sapply(data1[, 3], function(t) {
+			                       stats::integrate(f     = Integrand1,
+			                                        lower = 0,
+									     			upper = x[2] * t,
+													par   = x[1])$value
+								 })
+           - gamma(x = x[1]) * stats::pgamma(q     = data1[, 3],
+                                             shape = x[1],
+                                             rate  = x[2])
+            * stats::integrate(f     = Integrand1,
+                               lower = 0,
+                               upper = Inf,
+                               par   = x[1])$value)
           / gamma(x = x[1])^2),
       x[1] / x[2] * sum(data1[, 2])
        - sum(data1[, 2] * data1[, 3])
        + log(x[3]) * sum((x[2] * data1[, 3])^(x[1] - 1) * exp(- x[2] * data1[, 3]) * data1[, 3]
           / gamma(x = x[1])),
       1 / (x[3] * log(x[3])) * sum(data1[, 2])
-       + 1 / x[3] * sum(pgamma(q     = data1[, 3],
-                               shape = x[1],
-                               rate  = x[2])))
+       + 1 / x[3] * sum(stats::pgamma(q     = data1[, 3],
+                                      shape = x[1],
+                                      rate  = x[2])))
   }
   # constraints for parameters a, b and c for data of group 1
   eps <- 1e-7
@@ -92,12 +94,12 @@ LikelihoodNonMixGamma <- function(data1, data2, data,
                 byrow = TRUE)
   b1  <- c(eps, eps, eps, - (1 - eps))
   # maximum likelihood estimators for parameters a, b and c for data of group 1
-  res1 <- constrOptim(theta   = c(a1.0, b1.0, c1.0),
-                      f       = l1,
-                      grad    = l1Grad,
-                      ui      = A1,
-                      ci      = b1,
-                      control = list(fnscale = -1))
+  res1 <- stats::constrOptim(theta   = c(a1.0, b1.0, c1.0),
+                             f       = l1,
+                             grad    = l1Grad,
+                             ui      = A1,
+                             ci      = b1,
+                             control = list(fnscale = -1))
 
   # GROUP 2 (data2) -> a2.hat, b2.hat, c2.hat
   # log-likelihood function of parameters a, b and c for data of group 2
@@ -107,9 +109,9 @@ LikelihoodNonMixGamma <- function(data1, data2, data,
       + (x[1] - 1) * sum(data2[, 2] * log(data2[, 3]))
       - x[2] * sum(data2[, 2] * data2[, 3])
       + log(- log(x[3])) * sum(data2[, 2])
-      + log(x[3]) * sum(pgamma(q     = data2[, 3],
-                               shape = x[1],
-                               rate  = x[2])))
+      + log(x[3]) * sum(stats::pgamma(q     = data2[, 3],
+                                      shape = x[1],
+                                      rate  = x[2])))
   }
   # auxiliary function
   Integrand2 <- function(x, par) {
@@ -121,26 +123,28 @@ LikelihoodNonMixGamma <- function(data1, data2, data,
        - digamma(x = x[1]) * sum(data2[, 2])
        + sum(data2[, 2] * log(data2[, 3]))
        + log(x[3]) * sum((gamma(x = x[1])
-            * integrate(f     = Integrand2,
-                        lower = 0,
-                        upper = x[2] * data2[, 3],
-                        par   = x[1])$value
-           - gamma(x = x[1]) * pgamma(q     = data2[, 3],
-                                      shape = x[1],
-                                      rate  = x[2])
-            * integrate(f     = Integrand2,
-                        lower = 0,
-                        upper = Inf,
-                        par   = x[1])$value)
+            * sapply(data2[, 3], function(t) {
+			                       stats::integrate(f     = Integrand2,
+			                                        lower = 0,
+									     			upper = x[2] * t,
+													par   = x[1])$value
+								 })
+           - gamma(x = x[1]) * stats::pgamma(q     = data2[, 3],
+                                             shape = x[1],
+                                             rate  = x[2])
+            * stats::integrate(f     = Integrand2,
+                               lower = 0,
+                               upper = Inf,
+                               par   = x[1])$value)
           / gamma(x = x[1])^2),
       x[1] / x[2] * sum(data2[, 2])
        - sum(data2[, 2] * data2[, 3])
        + log(x[3]) * sum((x[2] * data2[, 3])^(x[1] - 1) * exp(- x[2] * data2[, 3]) * data2[, 3]
           / gamma(x = x[1])),
       1 / (x[3] * log(x[3])) * sum(data2[, 2])
-       + 1 / x[3] * sum(pgamma(q     = data2[, 3],
-                               shape = x[1],
-                               rate  = x[2])))
+       + 1 / x[3] * sum(stats::pgamma(q     = data2[, 3],
+                                      shape = x[1],
+                                      rate  = x[2])))
   }
   # constraints for parameters a, b and c for data of group 2
   eps <- 1e-7
@@ -153,12 +157,12 @@ LikelihoodNonMixGamma <- function(data1, data2, data,
                 byrow = TRUE)
   b2  <- c(eps, eps, eps, - (1 - eps))
   # maximum likelihood estimators for parameters a, b and c for data of group 2
-  res2 <- constrOptim(theta   = c(a2.0, b2.0, c2.0),
-                      f       = l2,
-                      grad    = l2Grad,
-                      ui      = A2,
-                      ci      = b2,
-                      control = list(fnscale = -1))
+  res2 <- stats::constrOptim(theta   = c(a2.0, b2.0, c2.0),
+                             f       = l2,
+                             grad    = l2Grad,
+                             ui      = A2,
+                             ci      = b2,
+                             control = list(fnscale = -1))
 
   # ALL DATA (data) -> a.hat, b.hat
   # log-likelihood function of parameters a, b and c for all data
@@ -168,9 +172,9 @@ LikelihoodNonMixGamma <- function(data1, data2, data,
       + (x[1] - 1) * sum(data[, 2] * log(data[, 3]))
       - x[2] * sum(data[, 2] * data[, 3])
       + log(- log(x[3])) * sum(data[, 2])
-      + log(x[3]) * sum(pgamma(q     = data[, 3],
-                               shape = x[1],
-                               rate  = x[2])))
+      + log(x[3]) * sum(stats::pgamma(q     = data[, 3],
+                                      shape = x[1],
+                                      rate  = x[2])))
   }
   # auxiliary function
   IntegrandAll <- function(x, par) {
@@ -182,26 +186,28 @@ LikelihoodNonMixGamma <- function(data1, data2, data,
        - digamma(x = x[1]) * sum(data[, 2])
        + sum(data[, 2] * log(data[, 3]))
        + log(x[3]) * sum((gamma(x = x[1])
-            * integrate(f     = IntegrandAll,
-                        lower = 0,
-                        upper = x[2] * data[, 3],
-                        par   = x[1])$value
-           - gamma(x = x[1]) * pgamma(q     = data[, 3],
-                                      shape = x[1],
-                                      rate  = x[2])
-            * integrate(f     = IntegrandAll,
-                        lower = 0,
-                        upper = Inf,
-                        par   = x[1])$value)
+            * sapply(data[, 3], function(t) {
+			                       stats::integrate(f     = IntegrandAll,
+			                                        lower = 0,
+									     			upper = x[2] * t,
+													par   = x[1])$value
+								 })
+           - gamma(x = x[1]) * stats::pgamma(q     = data[, 3],
+                                             shape = x[1],
+                                             rate  = x[2])
+            * stats::integrate(f     = IntegrandAll,
+                               lower = 0,
+                               upper = Inf,
+                               par   = x[1])$value)
           / gamma(x = x[1])^2),
       x[1] / x[2] * sum(data[, 2])
        - sum(data[, 2] * data[, 3])
        + log(x[3]) * sum((x[2] * data[, 3])^(x[1] - 1) * exp(- x[2] * data[, 3]) * data[, 3]
           / gamma(x = x[1])),
       1 / (x[3] * log(x[3])) * sum(data[, 2])
-       + 1 / x[3] * sum(pgamma(q     = data[, 3],
-                               shape = x[1],
-                               rate  = x[2])))
+       + 1 / x[3] * sum(stats::pgamma(q     = data[, 3],
+                                      shape = x[1],
+                                      rate  = x[2])))
   }
   # constraints for parameters a, b and c for all data
   eps  <- 1e-7
@@ -214,12 +220,12 @@ LikelihoodNonMixGamma <- function(data1, data2, data,
                  byrow = TRUE)
   bAll <- c(eps, eps, eps, - (1 - eps))
   # maximum likelihood estimators for parameters a, b and c for all data
-  resAll <- constrOptim(theta   = c(a.0, b.0, c.0),
-                        f       = lAll,
-                        grad    = lAllGrad,
-                        ui      = AAll,
-                        ci      = bAll,
-                        control = list(fnscale = -1))
+  resAll <- stats::constrOptim(theta   = c(a.0, b.0, c.0),
+                               f       = lAll,
+                               grad    = lAllGrad,
+                               ui      = AAll,
+                               ci      = bAll,
+                               control = list(fnscale = -1))
   a.hat <- resAll$par[1]
   b.hat <- resAll$par[2]
 
@@ -231,9 +237,9 @@ LikelihoodNonMixGamma <- function(data1, data2, data,
       + (a.hat - 1) * sum(data1[, 2] * log(data1[, 3]))
       - b.hat * sum(data1[, 2] * data1[, 3])
       + log(- log(x)) * sum(data1[, 2])
-      + log(x) * sum(pgamma(q     = data1[, 3],
-                            shape = a.hat,
-                            rate  = b.hat)))
+      + log(x) * sum(stats::pgamma(q     = data1[, 3],
+                                   shape = a.hat,
+                                   rate  = b.hat)))
   }
   # auxiliary function
   Integrand1.cond <- function(x, par) {
@@ -242,9 +248,9 @@ LikelihoodNonMixGamma <- function(data1, data2, data,
   # gradient of log-likelihood function
   l1Grad.cond <- function(x) {
     (1 / (x * log(x)) * sum(data1[, 2])
-      + 1 / x * sum(pgamma(q     = data1[, 3],
-                    shape = a.hat,
-                    rate  = b.hat)))
+      + 1 / x * sum(stats::pgamma(q     = data1[, 3],
+                                  shape = a.hat,
+                                  rate  = b.hat)))
   }
   # constraints for parameter c for data of group 1
   eps     <- 1e-7
@@ -255,12 +261,12 @@ LikelihoodNonMixGamma <- function(data1, data2, data,
                     byrow = TRUE)
   b1.cond <- c(eps, - (1 - eps))
   # maximum likelihood estimator for parameter c for data of group 1
-  res1.cond <- constrOptim(theta   = c1.0,
-                     f       = l1.cond,
-                     grad    = l1Grad.cond,
-                     ui      = A1.cond,
-                     ci      = b1.cond,
-                     control = list(fnscale = -1))
+  res1.cond <- stats::constrOptim(theta   = c1.0,
+                                  f       = l1.cond,
+                                  grad    = l1Grad.cond,
+                                  ui      = A1.cond,
+                                  ci      = b1.cond,
+                                  control = list(fnscale = -1))
 
   # GROUP 2 (data2) with fixed a and b -> c2.cond.hat
   # log-likelihood function of parameter c for data of group 2
@@ -270,9 +276,9 @@ LikelihoodNonMixGamma <- function(data1, data2, data,
       + (a.hat - 1) * sum(data2[, 2] * log(data2[, 3]))
       - b.hat * sum(data2[, 2] * data2[, 3])
       + log(- log(x)) * sum(data2[, 2])
-      + log(x) * sum(pgamma(q     = data2[, 3],
-                            shape = a.hat,
-                            rate  = b.hat)))
+      + log(x) * sum(stats::pgamma(q     = data2[, 3],
+                                   shape = a.hat,
+                                   rate  = b.hat)))
   }
   # auxiliary function
   Integrand2.cond <- function(x, par) {
@@ -281,9 +287,9 @@ LikelihoodNonMixGamma <- function(data1, data2, data,
   # gradient of log-likelihood function
   l2Grad.cond <- function(x) {
     (1 / (x * log(x)) * sum(data2[, 2])
-      + 1 / x * sum(pgamma(q     = data2[, 3],
-                           shape = a.hat,
-                           rate  = b.hat)))
+      + 1 / x * sum(stats::pgamma(q     = data2[, 3],
+                                  shape = a.hat,
+                                  rate  = b.hat)))
   }
   # constraints for parameter c for data of group 2
   eps     <- 1e-7
@@ -294,12 +300,12 @@ LikelihoodNonMixGamma <- function(data1, data2, data,
                     byrow = TRUE)
   b2.cond <- c(eps, - (1 - eps))
   # maximum likelihood estimator for parameter c for data of group 2
-  res2.cond <- constrOptim(theta   = c2.0,
-                           f       = l2.cond,
-                           grad    = l2Grad.cond,
-                           ui      = A2.cond,
-                           ci      = b2.cond,
-                           control = list(fnscale = -1))
+  res2.cond <- stats::constrOptim(theta   = c2.0,
+                                  f       = l2.cond,
+                                  grad    = l2Grad.cond,
+                                  ui      = A2.cond,
+                                  ci      = b2.cond,
+                                  control = list(fnscale = -1))
 
   return(c(res1$par[1], res1$par[2], res1$par[3],
            res2$par[1], res2$par[2], res2$par[3],

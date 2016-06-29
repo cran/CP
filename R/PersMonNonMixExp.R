@@ -23,18 +23,18 @@ PersMonNonMixExp <- function(lambda, c, n.alive, new.pat, cont.time) {
     c^exp(- lambda * x)
   }
   Integrand3 <- function(x) {
-    (integrate(f     = Integrand2,
-               lower = 0,
-               upper = x)$value * c^(1 - exp(- lambda * x)))
+    (stats::integrate(f     = Integrand2,
+                      lower = 0,
+                      upper = x)$value * c^(1 - exp(- lambda * x)))
   }
 
   # calculation of further person months
-  O.star <- (n.alive * integrate(f     = Integrand1,
-                                 lower = 0,
-                                 upper = cont.time)$value
-              + new.pat / c * integrate(f     = Vectorize(Integrand3),
+  O.star <- (n.alive * stats::integrate(f     = Integrand1,
                                         lower = 0,
-                                        upper = cont.time)$value)
+                                        upper = cont.time)$value
+              + new.pat / c * stats::integrate(f     = Vectorize(Integrand3),
+                                               lower = 0,
+                                               upper = cont.time)$value)
 
   return(O.star)
 }

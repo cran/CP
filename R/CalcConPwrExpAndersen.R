@@ -43,18 +43,18 @@ CalcConPwrExpAndersen <- function(theta.0,
   sigma.theta.alter <- (sqrt(lambda1.hat * O1.star / (d1 + lambda1.hat * O1.star)^2
                               + theta * lambda1.hat * O2.star / (d2 + theta * lambda1.hat * O2.star)^2))
   # (asymptotically) conditional power function
-  gamma.theta       <- (pnorm((qnorm(alpha / 2) * sigma.theta.null
+  gamma.theta       <- (stats::pnorm((stats::qnorm(alpha / 2) * sigma.theta.null
                                 - mu.theta.alter) / sigma.theta.alter)
-                         + 1 - pnorm((qnorm(1 - alpha / 2) * sigma.theta.null
+                         + 1 - stats::pnorm((stats::qnorm(1 - alpha / 2) * sigma.theta.null
                                        - mu.theta.alter) / sigma.theta.alter))
   # values at theta.0
   mu.theta.0        <- (log((d2 + theta.0 * lambda1.hat * O2.star) / (o2 + O2.star))
                          - log((d1 + lambda1.hat * O1.star) / (o1 + O1.star)))
   sigma.theta.0     <- (sqrt(lambda1.hat * O1.star / (d1 + lambda1.hat * O1.star)^2
                               + theta.0 * lambda1.hat * O2.star / (d2 + theta.0 * lambda1.hat * O2.star)^2))
-  gamma.theta.0     <- (pnorm((qnorm(alpha / 2) * sigma.theta.null
+  gamma.theta.0     <- (stats::pnorm((stats::qnorm(alpha / 2) * sigma.theta.null
                                 - mu.theta.0) / sigma.theta.0)
-                         + 1 - pnorm((qnorm(1 - alpha / 2) * sigma.theta.null
+                         + 1 - stats::pnorm((stats::qnorm(1 - alpha / 2) * sigma.theta.null
                                        - mu.theta.0) / sigma.theta.0))
 
   return(list(theta, gamma.theta, gamma.theta.0))

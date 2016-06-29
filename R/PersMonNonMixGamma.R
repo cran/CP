@@ -19,30 +19,30 @@ PersMonNonMixGamma <- function(a, b, c, n.alive, new.pat, cont.time) {
 
   # auxiliary functions / integrands
   Integrand1 <- function(x) {
-    c^pgamma(q     = x,
-             shape = a,
-             rate  = b)
+    c^stats::pgamma(q     = x,
+                    shape = a,
+                    rate  = b)
   }
   Integrand2 <- function(x) {
-    c^(1 - pgamma(q     = x,
-                  shape = a,
-                  rate  = b))
+    c^(1 - stats::pgamma(q     = x,
+                         shape = a,
+                         rate  = b))
   }
   Integrand3 <- function(x) {
-    (integrate(f     = Integrand2,
-               lower = 0,
-               upper = x)$value * c^pgamma(q     = x,
-                                           shape = a,
-                                           rate  = b))
+    (stats::integrate(f     = Integrand2,
+                      lower = 0,
+                      upper = x)$value * c^stats::pgamma(q     = x,
+                                                         shape = a,
+                                                         rate  = b))
   }
 
   # calculation of further person months
-  O.star <- (n.alive * integrate(f     = Integrand1,
-                                 lower = 0,
-                                 upper = cont.time)$value
-              + new.pat / c * integrate(f     = Vectorize(Integrand3),
+  O.star <- (n.alive * stats::integrate(f     = Integrand1,
                                         lower = 0,
-                                        upper = cont.time)$value)
+                                        upper = cont.time)$value
+              + new.pat / c * stats::integrate(f     = Vectorize(Integrand3),
+                                               lower = 0,
+                                               upper = cont.time)$value)
 
   return(O.star)
 }

@@ -115,9 +115,9 @@ ConPwrNonMixWei <- function(data, cont.time,
   # and in group 2 under the null hypothesis
   n1                  <- length(x = data1[, 1])
   n2                  <- length(x = data2[, 1])
-  O1.stroke.star      <- o1.stroke / n1 * (n1.alive + new.pat[1] * (cont.time + 1) / 2)
-  O2.stroke.star      <- o2.stroke / n2 * (n2.alive + new.pat[2] * (cont.time + 1) / 2)
-  O2.stroke.star.null <- o2.stroke.null / n2 * (n2.alive + new.pat[2] * (cont.time + 1) / 2)
+  O1.stroke.star      <- o1.stroke / n1 * (n1.alive + new.pat[1] * cont.time) * c1.cond.hat
+  O2.stroke.star      <- o2.stroke / n2 * (n2.alive + new.pat[2] * cont.time) * c2.cond.hat
+  O2.stroke.star.null <- o2.stroke.null / n2 * (n2.alive + new.pat[2] * cont.time) * c2.cond.hat
 
   # number of patients
   n.alive <- n1.alive + n2.alive
@@ -159,16 +159,16 @@ ConPwrNonMixWei <- function(data, cont.time,
   # conditional power
   DispConPwr(gamma.theta.0, group1.name, group2.name)
   # standardization of plot window
-  par(las   = 1,
-      mfrow = c(1, 1))
+  graphics::par(las   = 1,
+                mfrow = c(1, 1))
   # plots of Kaplan-Meier curves (optional)
   if (plot.km == TRUE) {
-    par(mfrow = c(1, 2))
+    graphics::par(mfrow = c(1, 2))
 
     PlotKM(data, "Non-Mixture Model with Weibull type Survival")
     PlotEstNonMixWei(data1, data2,
-                     lambda1.hat, k1.hat, c1.hat,
-                     lambda2.hat, k2.hat, c2.hat,
+                     lambda1.hat, k1.hat, c1.cond.hat,
+                     lambda2.hat, k2.hat, c2.cond.hat,
                      group1.name, group2.name)
   }
   # plot of conditional power curve

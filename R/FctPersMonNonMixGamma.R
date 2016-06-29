@@ -19,9 +19,9 @@ FctPersMonNonMixGamma <- function(data, a.hat, b.hat, group.name) {
   ##   Returns the value of some function of the person months.
 
   # function of person months, and their verification
-  o.stroke <- sum(pgamma(q     = data[, 3],
-                         shape = a.hat,
-                         rate  = b.hat))
+  o.stroke <- sum(stats::pgamma(q     = data[, 3],
+                                shape = a.hat,
+                                rate  = b.hat))
   if (o.stroke <= 0) {
     stop(paste("Number of person months in", group.name, "must be bigger than 0.",
          call. = FALSE))

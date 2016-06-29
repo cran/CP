@@ -18,10 +18,10 @@ PlotKM <- function(data, model.name) {
   km <- survival::survfit(formula = survival::Surv(time  = data[, 3],
                                                    event = data[, 2]) ~ data[, 1])
   # plot of Kaplan-Meier curves
-  plot(x    = km,
-       main = model.name,
-       xlab = "Time",
-       ylab = "Survival",
-       col  = c("blue", "green"),
-       ylim = c(0, 1))
+  graphics::plot(x    = km,
+                 main = model.name,
+                 xlab = "Time",
+                 ylab = "Survival",
+                 col  = c("blue", "green"),
+                 ylim = c(0, 1))
 }

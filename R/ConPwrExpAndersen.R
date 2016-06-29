@@ -106,11 +106,11 @@ ConPwrExpAndersen <- function(data, cont.time,
   # conditional power
   DispConPwr(gamma.theta.0, group1.name, group2.name)
   # standardization of plot window
-  par(las   = 1,
-      mfrow = c(1, 1))
+  graphics::par(las   = 1,
+                mfrow = c(1, 1))
   # plot of Kaplan-Meier curves and estimated survival (optional)
   if (plot.km == TRUE) {
-    par(mfrow = c(1, 2))
+    graphics::par(mfrow = c(1, 2))
 
     PlotKM(data, "Exponential Model (Andersen)")
     PlotEstExp(data1, data2,

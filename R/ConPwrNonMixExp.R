@@ -44,10 +44,10 @@ ConPwrNonMixExp <- function(data, cont.time,
   # split data frame into two data frames, each for one group,
   # and converting group expressions for internal calculations
   # into values 1 and 2
-  split.data    <- SplitData(data)
-  data1         <- split.data[[1]]
+  split.data  <- SplitData(data)
+  data1       <- split.data[[1]]
   group1.name <- split.data[[2]]
-  data2         <- split.data[[3]]
+  data2       <- split.data[[3]]
   group2.name <- split.data[[4]]
 
   # calculate initial values for maximum likelihood estimation
@@ -81,13 +81,13 @@ ConPwrNonMixExp <- function(data, cont.time,
                                                               lambda2.0, c2.0,
                                                               lambda.0, c.0)
   # maximum likelihood estimators of parameters in group 1, group 2
-  lambda1.hat                        <- likelihood.nonmix.exp[1]
-  c1.hat                             <- likelihood.nonmix.exp[2]
-  lambda2.hat                        <- likelihood.nonmix.exp[3]
-  c2.hat                             <- likelihood.nonmix.exp[4]
-  lambda.hat                         <- likelihood.nonmix.exp[5]
-  c1.cond.hat                        <- likelihood.nonmix.exp[6]
-  c2.cond.hat                        <- likelihood.nonmix.exp[7]
+  lambda1.hat                          <- likelihood.nonmix.exp[1]
+  c1.hat                               <- likelihood.nonmix.exp[2]
+  lambda2.hat                          <- likelihood.nonmix.exp[3]
+  c2.hat                               <- likelihood.nonmix.exp[4]
+  lambda.hat                           <- likelihood.nonmix.exp[5]
+  c1.cond.hat                          <- likelihood.nonmix.exp[6]
+  c2.cond.hat                          <- likelihood.nonmix.exp[7]
 
   # estimator for hazard ratio theta = log(c2) / log(c1)
   # under the assumption lambda1 = lambda2
@@ -109,9 +109,9 @@ ConPwrNonMixExp <- function(data, cont.time,
   # and in group 2 under the null hypothesis
   n1                  <- length(x = data1[, 1])
   n2                  <- length(x = data2[, 1])
-  O1.stroke.star      <- o1.stroke / n1 * (n1.alive + new.pat[1] * (cont.time + 1) / 2)
-  O2.stroke.star      <- o2.stroke / n2 * (n2.alive + new.pat[2] * (cont.time + 1) / 2)
-  O2.stroke.star.null <- o2.stroke.null / n2 * (n2.alive + new.pat[2] * (cont.time + 1) / 2)
+  O1.stroke.star      <- o1.stroke / n1 * (n1.alive + new.pat[1] * cont.time) * c1.cond.hat
+  O2.stroke.star      <- o2.stroke / n2 * (n2.alive + new.pat[2] * cont.time) * c2.cond.hat
+  O2.stroke.star.null <- o2.stroke.null / n2 * (n2.alive + new.pat[2] * cont.time ) * c2.cond.hat
 
   # number of patients
   n.alive <- n1.alive + n2.alive
@@ -153,16 +153,16 @@ ConPwrNonMixExp <- function(data, cont.time,
   # conditional power
   DispConPwr(gamma.theta.0, group1.name, group2.name)
   # standardization of plot window
-  par(las   = 1,
-      mfrow = c(1, 1))
+  graphics::par(las   = 1,
+                mfrow = c(1, 1))
   # plots of Kaplan-Meier curves (optional)
   if (plot.km == TRUE) {
-    par(mfrow = c(1, 2))
+    graphics::par(mfrow = c(1, 2))
 
     PlotKM(data, "Non-Mixture Model with Exponential Survival")
     PlotEstNonMixExp(data1, data2,
-                     lambda1.hat, c1.hat,
-                     lambda2.hat, c2.hat,
+                     lambda1.hat, c1.cond.hat,
+                     lambda2.hat, c2.cond.hat,
                      group1.name, group2.name)
   }
   # plot of conditional power curve

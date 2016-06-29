@@ -176,9 +176,9 @@ CompSurvMod <- function(data, cont.time,
   # and in group 2 under the null hypothesis
   n1                  <- length(x = data1[, 1])
   n2                  <- length(x = data2[, 1])
-  O1.stroke.star      <- o1.stroke / n1 * (n1.alive + new.pat[1] * (cont.time + 1) / 2)
-  O2.stroke.star      <- o2.stroke / n2 * (n2.alive + new.pat[2] * (cont.time + 1) / 2)
-  O2.stroke.star.null <- o2.stroke.null / n2 * (n2.alive + new.pat[2] * (cont.time + 1) / 2)
+  O1.stroke.star      <- o1.stroke / n1 * (n1.alive + new.pat[1] * cont.time) * c1.cond.hat.nonmix.exp
+  O2.stroke.star      <- o2.stroke / n2 * (n2.alive + new.pat[2] * cont.time) * c2.cond.hat.nonmix.exp
+  O2.stroke.star.null <- o2.stroke.null / n2 * (n2.alive + new.pat[2] * cont.time) * c2.cond.hat.nonmix.exp
 
   # number of patients
   n.alive <- n1.alive + n2.alive
@@ -259,9 +259,9 @@ CompSurvMod <- function(data, cont.time,
   c1.cond.hat.nonmix.wei              <- likelihood.nonmix.wei[9]
   c2.cond.hat.nonmix.wei              <- likelihood.nonmix.wei[10]
   log.likelihood1.hat.nonmix.wei      <- likelihood.nonmix.wei[11]
-  AIC1.nonmix.wei                     <- - 2 * log.likelihood1.hat.nonmix.wei + 2 * 2
+  AIC1.nonmix.wei                     <- - 2 * log.likelihood1.hat.nonmix.wei + 2 * 3
   log.likelihood2.hat.nonmix.wei      <- likelihood.nonmix.wei[12]
-  AIC2.nonmix.wei                     <- - 2 * log.likelihood2.hat.nonmix.wei + 2 * 2
+  AIC2.nonmix.wei                     <- - 2 * log.likelihood2.hat.nonmix.wei + 2 * 3
 
   # estimator for hazard ratio theta = log(c2) / log(c1)
   # under the assumption lambda1 = lambda2 and k1 = k2
@@ -285,9 +285,9 @@ CompSurvMod <- function(data, cont.time,
   # and in group 2 under the null hypothesis
   n1                  <- length(x = data1[, 1])
   n2                  <- length(x = data2[, 1])
-  O1.stroke.star      <- o1.stroke / n1 * (n1.alive + new.pat[1] * (cont.time + 1) / 2)
-  O2.stroke.star      <- o2.stroke / n2 * (n2.alive + new.pat[2] * (cont.time + 1) / 2)
-  O2.stroke.star.null <- o2.stroke.null / n2 * (n2.alive + new.pat[2] * (cont.time + 1) / 2)
+  O1.stroke.star      <- o1.stroke / n1 * (n1.alive + new.pat[1] * cont.time) * c1.cond.hat.nonmix.wei
+  O2.stroke.star      <- o2.stroke / n2 * (n2.alive + new.pat[2] * cont.time) * c2.cond.hat.nonmix.wei
+  O2.stroke.star.null <- o2.stroke.null / n2 * (n2.alive + new.pat[2] * cont.time) * c2.cond.hat.nonmix.wei
 
   # number of patients
   n.alive <- n1.alive + n2.alive
@@ -368,9 +368,9 @@ CompSurvMod <- function(data, cont.time,
   c1.cond.hat.nonmix.gamma             <- likelihood.nonmix.gamma[9]
   c2.cond.hat.nonmix.gamma             <- likelihood.nonmix.gamma[10]
   log.likelihood1.hat.nonmix.gamma     <- likelihood.nonmix.gamma[11]
-  AIC1.nonmix.gamma                    <- - 2 * log.likelihood1.hat.nonmix.gamma + 2 * 2
+  AIC1.nonmix.gamma                    <- - 2 * log.likelihood1.hat.nonmix.gamma + 2 * 3
   log.likelihood2.hat.nonmix.gamma     <- likelihood.nonmix.gamma[12]
-  AIC2.nonmix.gamma                    <- - 2 * log.likelihood2.hat.nonmix.gamma + 2 * 2
+  AIC2.nonmix.gamma                    <- - 2 * log.likelihood2.hat.nonmix.gamma + 2 * 3
 
   # estimator for hazard ratio theta = log(c2) / log(c1)
   # under the assumption a1 = a2 and b1 = b2
@@ -394,9 +394,9 @@ CompSurvMod <- function(data, cont.time,
   # and in group 2 under the null hypothesis
   n1                  <- length(x = data1[, 1])
   n2                  <- length(x = data2[, 1])
-  O1.stroke.star      <- o1.stroke / n1 * (n1.alive + new.pat[1] * (cont.time + 1) / 2)
-  O2.stroke.star      <- o2.stroke / n2 * (n2.alive + new.pat[2] * (cont.time + 1) / 2)
-  O2.stroke.star.null <- o2.stroke.null / n2 * (n2.alive + new.pat[2] * (cont.time + 1) / 2)
+  O1.stroke.star      <- o1.stroke / n1 * (n1.alive + new.pat[1] * cont.time) * c1.cond.hat.nonmix.gamma
+  O2.stroke.star      <- o2.stroke / n2 * (n2.alive + new.pat[2] * cont.time) * c2.cond.hat.nonmix.gamma
+  O2.stroke.star.null <- o2.stroke.null / n2 * (n2.alive + new.pat[2] * cont.time) * c2.cond.hat.nonmix.gamma
 
   # number of patients
   n.alive <- n1.alive + n2.alive
@@ -448,16 +448,16 @@ CompSurvMod <- function(data, cont.time,
                 gamma.theta.0.nonmix.gamma,
                 group1.name, group2.name)
   # standardization of plot window
-  par(las   = 1,
+  graphics::par(las   = 1,
       mfrow = c(1, 1))
   # plots of Kaplan-Meier curves
   # and estimated survival curves
   # according to the four mentioned models (optional)
   if (plot.km == TRUE) {
-    layout(mat = matrix(data  = c(1, 2, 3, 4, 5, 5),
-                        nrow  = 3,
-                        ncol  = 2,
-                        byrow = TRUE))
+    graphics::layout(mat = matrix(data  = c(1, 2, 3, 4, 5, 5),
+                                  nrow  = 3,
+                                  ncol  = 2,
+                                  byrow = TRUE))
 
     # exponential model
     PlotKM(data, "Exponential Model")
@@ -468,22 +468,22 @@ CompSurvMod <- function(data, cont.time,
     # non-mixture model with exponential survival
     PlotKM(data, "Non-Mixture Model with Exponential Survival")
     PlotEstNonMixExp(data1, data2,
-                     lambda1.hat.nonmix.exp, c1.hat.nonmix.exp,
-                     lambda2.hat.nonmix.exp, c2.hat.nonmix.exp,
+                     lambda1.hat.nonmix.exp, c1.cond.hat.nonmix.exp,
+                     lambda2.hat.nonmix.exp, c2.cond.hat.nonmix.exp,
                      group1.name, group2.name)
 
     # non-mixture model with Weibull type survival
     PlotKM(data, "Non-Mixture Model with Weibull type Survival")
     PlotEstNonMixWei(data1, data2,
-                     lambda1.hat.nonmix.wei, k1.hat.nonmix.wei, c1.hat.nonmix.wei,
-                     lambda2.hat.nonmix.wei, k2.hat.nonmix.wei, c2.hat.nonmix.wei,
+                     lambda1.hat.nonmix.wei, k1.hat.nonmix.wei, c1.cond.hat.nonmix.wei,
+                     lambda2.hat.nonmix.wei, k2.hat.nonmix.wei, c2.cond.hat.nonmix.wei,
                      group1.name, group2.name)
 
     # non-mixture model with Gamma type survival
     PlotKM(data, "Non-Mixture Model with Gamma type Survival")
     PlotEstNonMixGamma(data1, data2,
-                       a1.hat.nonmix.gamma, b1.hat.nonmix.gamma, c1.hat.nonmix.gamma,
-                       a2.hat.nonmix.gamma, b2.hat.nonmix.gamma, c2.hat.nonmix.gamma,
+                       a1.hat.nonmix.gamma, b1.hat.nonmix.gamma, c1.cond.hat.nonmix.gamma,
+                       a2.hat.nonmix.gamma, b2.hat.nonmix.gamma, c2.cond.hat.nonmix.gamma,
                        group1.name, group2.name)
   }
   # plot of conditional power curves
