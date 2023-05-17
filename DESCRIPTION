@@ -1,8 +1,8 @@
 Package: CP
 Type: Package
 Title: Conditional Power Calculations
-Version: 1.6
-Date: 2016-06-28
+Version: 1.7
+Date: 2023-05-17
 Author: Andreas Kuehnapfel
 Maintainer: Andreas Kuehnapfel <andreas.kuehnapfel@imise.uni-leipzig.de>
 Depends: R(>= 3.3.0)
@@ -13,10 +13,10 @@ Description: Functions for calculating the conditional power
              with two different treatments to be compared
              and survival as an endpoint.
 License: GPL-3
-URL: https://www.imise.uni-leipzig.de
+URL: https://www.genstat.imise.uni-leipzig.de/
 LazyLoad: yes
 LazyData: yes
 NeedsCompilation: no
-Packaged: 2016-06-28 09:17:30 UTC; akuehnapfel
+Packaged: 2023-05-17 16:02:30 UTC; and1110kue
 Repository: CRAN
-Date/Publication: 2016-06-29 16:00:49
+Date/Publication: 2023-05-17 16:50:12 UTC

@@ -22,8 +22,8 @@
  \tabular{ll}{
   Package: \tab CP \cr
   Type:    \tab Package \cr
-  Version: \tab 1.6 \cr
-  Date:    \tab 2016-06-28 \cr
+  Version: \tab 1.7 \cr
+  Date:    \tab 2023-05-17 \cr
   License: \tab GPL-3 \cr
  }
  
@@ -80,13 +80,15 @@
 }
 
 \references{
- Kuehnapfel, A. (2013).
- Die bedingte Power in der Ueberlebenszeitanalyse.
+ Andreas Kuehnapfel, Fabian Schwarzenberger, Markus Scholz.
+ On the Conditional Power in Survival Time Analysis
+ Considering Cure Fractions.
+ The International Journal of Biostatistics 13 (1), 2017.
  
- Andersen, P. K. (1987).
+ Per Kragh Andersen.
  Conditional power calculations as an aid in the decision
  whether to continue a clinical trial.
- Controlled Clinical Trials 8, 67-74.
+ Controlled Clinical Trials 8 (1), 67-74, 1987.
 }
 
 \seealso{
