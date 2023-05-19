@@ -22,7 +22,7 @@
  \tabular{ll}{
   Package: \tab CP \cr
   Type:    \tab Package \cr
-  Version: \tab 1.7 \cr
+  Version: \tab 1.8 \cr
   Date:    \tab 2023-05-17 \cr
   License: \tab GPL-3 \cr
  }

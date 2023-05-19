@@ -1,4 +1,4 @@
-ffefe516ea4f7165ee17081193c78073 *DESCRIPTION
+0365dbae77578cb94c2f236292b26508 *DESCRIPTION
 b04ae15b61b6805f7c7687ae717168e4 *NAMESPACE
 c96f05706bd18a7e1b8b8c0608004d44 *R/CalcConPwrExp.R
 f596d33d1126b24a810dd9a5eda7d366 *R/CalcConPwrExpAndersen.R
@@ -40,8 +40,9 @@ f5de5488fe6f7ba0916078cb77f399f2 *R/PlotEstNonMixExp.R
 ec50ff28fff8275adeb9aa408e95b89a *R/PlotEstNonMixWei.R
 11489d398188136ba52b79ef8c5fa437 *R/PlotKM.R
 d6417cc6824a38dbcdd15a6ab020d455 *R/SplitData.R
+e86f37a801cfec8a7c48861ab99fe311 *data/test.txt
 251c6d2b9a13f7966a5f53b44869225c *data/test.txt.gz
-1fc3af98624df93ee67e6e564699934a *man/CP-package.Rd
+195b1d0832b87b736ef49d45e8fbe069 *man/CP-package.Rd
 a5567d5a47a686a94108ac141e481910 *man/CalcConPwrExp.Rd
 0ba88c43d9955c189d89e8f27c6c8280 *man/CalcConPwrExpAndersen.Rd
 3abb896c01b301825989c1d8b33d2d27 *man/CalcConPwrNonMix.Rd
